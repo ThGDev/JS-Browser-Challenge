@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./assets/stylesheet/css/shopping-list.css">
+</head>
+  <body>
+    <h1>Shopping list</h1>
+    <div class="brief">
+      <p>
+        J'aimerai afficher ma liste de course.
+        <br>2/ Génial ce formulaire va le permettre. Editez un fichier javascript permettant de lister ma liste de course sous le formulaire.
+        <br>3/ Le bouton "supprimer ma liste" doit effacer la liste à l'écran.
+        <br>(voir shopping-list.html)
+      </p>
+    </div>
+    <form  id="formulaire" style="text-align: center;">
+      <input type="text" placeholder="ex: poire">
+    <button id="bouton">Envoyer</button>
+    <button id="Supprime">Supprimer ma liste</button>
+    </form>
+    <div id="maListeDeCourse">Liste : </div>
+    <script>
+      //je stocke l'emplacement de mon element HTML où je vais afficher la liste
+      const ecritureListe = document.querySelector('#maListeDeCourse');
+
+      // je stocke l'emplacement de mes boutons
+      const btnAjoutItemListe = document.querySelector('#bouton');
+      const btnViderListe = document.querySelector('#Supprime');
+
+      // je stocke l'emplacement de mon input
+      const inputItemListe = document.querySelector('input');
+
+      // je créé un tableau vide qui va empiler mes itemps de liste
+      const maListe = [];
+      
+      // je créé ma fonction d'ajout d'élément de liste avec pour argument l'évènement (ici le "click")
+      const ajoutItemListe = (evt) => {
+        let itemListe = inputItemListe.value;
+        maListe.push(`${itemListe}`); // je rajoute l'item dans mon tableau
+        ecritureListe.insertAdjacentHTML('beforeend', `${maListe[maListe.length -1]} `) // j'écris dans le HTML le dernier élément du tableau de ma liste
+        evt.preventDefault(); // fonction pour éviter le rechargement de la page (lié au comportement du formulaire au submit)
+      }
+
+      // au clic sur le bouton, j'écris mon élément de liste dans mon élément HTML
+      btnAjoutItemListe.addEventListener('click', ajoutItemListe);
+
+      // fonction pour vider mon tableau et remplacer le texte de DIV liste
+      const videTabListe = (evt) => {
+        maListe.splice(0, maListe.length) // je vide mon tableau à partir de l'indice 0 et enlève le nombre total d'éléments contenus dans mon tableau (tableau.length)
+        ecritureListe.innerHTML = 'Liste : '; // je réécris le contenu de la DIV "maListeDeCourse"
+        evt.preventDefault();
+      }
+
+      // au clic sur le bouton, j'applique la fonction ci-dessus
+      btnViderListe.addEventListener('click', videTabListe);
+      
+    </script>
+  </body>
+</html>

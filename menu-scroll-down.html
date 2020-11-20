@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./assets/stylesheet/css/menu.css">
+</head>
+  <body>
+  <nav id="menu">
+    <ul style="text-align: center;">
+      <li>Accueil</li>
+      <li>Produit</li>
+      <li>Equipe</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+  <div class="banner">
+    <h1>Créez un menu qui se fixe en haut de la page lorsqu'on scroll-down au dela de 70 px
+    <br>(voir menu-scroll-down.html)
+    </h1>
+  </div>
+    <script>
+      const html = document.documentElement;  // je stocke l'emplacement de ma balise HTML (attention, pour Safari prendre le "body")
+      
+      const menuFixed = document.querySelector("#menu"); // je stocke l'emplacement de mon menu
+
+      const menuScrollDown = () => {  // fonction pour changer la classe du menu selon la valeur de position du scroll de la page
+        
+        console.log(html.scrollTop); 
+
+        if(html.scrollTop >= 70){                     // si la valeur du scrollTop = ou dépasse 70px
+          menuFixed.classList.add('fixed-position');  // j'ajoute la classe dédiée
+          menuFixed.style.marginTop = '0';            // je change la valeur du margin-top
+        }
+        else if(html.scrollTop < 70){                   // ET si la valeur du scrollTop repasse en dessous des 70px
+          menuFixed.classList.remove('fixed-position'); // alors je retire la classe ajoutée plus haut
+          menuFixed.style.marginTop = '70px';           // et je repasse la valeur du margin-top à celle de départ
+        }
+      }
+      // je place un écouteur au scroll sur le document entier et j'applique la fonction dédiée
+      document.addEventListener("scroll", menuScrollDown);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>allo ciné star</title>
+  <link rel="stylesheet" href="./assets/stylesheet/css/star.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body>
+  <div class="star">
+    <h1>ALLO CINE ! Un click sur une des étoiles permettra des la passer au jaunes ainsi que toutes les étoiles précédentes
+    <br>(voir star.html)
+    </h1>
+
+    <ul id="list-of-stars">
+      <li><i class="fas fa-star truc"></i></li>
+      <li><i class="fas fa-star"></i></li>
+      <li><i class="fas fa-star"></i></li>
+      <li><i class="fas fa-star"></i></li>
+      <li><i class="fas fa-star"></i></li>
+    </ul>
+  </div>
+  <div class="test"></div>
+  <script>
+  // je stocke le contenu de la liste UL dans une variable (tous les <li>)
+  const etoiles = document.querySelector('#list-of-stars');
+
+  // je stocke le nombre d'enfants contenus dans la liste (le nbre de <li>), en chiffre
+  const listeEtoile = etoiles.children;
+
+  // Aide trouvée là → https://jsfiddle.net/67L2g13z/1/
+  // je créé une fonction qui, à partir du n° d'index de l'élément cliqué (voir fonction + bas) va appliquer la classe "star-checked" à lui-même et tous les précédents (et commence par retirer la classe à TOUS les éléments, pour que lorsque l'on clique sur une étoile située AVANT celle qu'on a cliqué précédemment, les autres redeviennent grises)
+  const etoilesClick = (index) => {
+      for(let i = 0; i < listeEtoile.length; i++){        // je retire la classe à tous les éléments <li>
+        listeEtoile[i].classList.remove('star-checked');
+      }
+      let numIndexEtoile = index + 1;                 // je stocke la valeur de l'index ("0" pour le 1er) et rajoute 1
+                                                      // (j'aurais pu faire "i = 1" dans la boucle juste en dessous)
+
+      for(let i = 0; i < numIndexEtoile; i++){        // j'ajoute la classe à tous les éléments <li> qui vont du 1er
+        listeEtoile[i].classList.add('star-checked'); // indice[0] à celui dont l'indice à été cliqué → indice[index+1]
+      }
+  }
+  // je créé la fonction qui va récupérer le n° d'index de l'élément cliqué
+  const indexEtoile = () => {
+      for (let i = 0; i < listeEtoile.length; i++) {
+        listeEtoile[i].addEventListener("click",
+            etoilesClick.bind(null, i)  // au clic sur l'élément, je déclenche la fonction précédente (etoilesClick)
+          );                            // j'avoue n'avoir que cerné la fonction blind()... (sans ça ne fonctionne pas)
+      }                                 // je pense comprendre que ça garde en mémoire l'argument qui, sans ça, devient
+  }                                     // "undefined" lorsque je veux l'utiliser dans la fonction codée + haut
+  indexEtoile();
+  </script>
+</body>
+</html>

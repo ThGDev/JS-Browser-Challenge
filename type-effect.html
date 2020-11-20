@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Type effect</title>
+    <link rel="stylesheet" href="./assets/stylesheet/css/type-effect.css">
+  </head>
+  <body>
+    <h2>Faire apparaitre le mots de votre choix lettre par lettre dans la balise 'h1' (voir code...)
+    <br>(voir type-effect.html)
+    </h2>
+    <h1></h1>
+  <script>
+    // je stocke l'emplacement de mon h1 dans une variable
+    const h1 = document.querySelector('h1');
+
+    // je créé ma chaîne de caractère et la stocke dans une variable
+    const monTexte = 'Faut arrêter ces conneries de nord et de sud ! Une fois pour toutes, le nord, suivant comment on est tourné, ça change tout !';
+
+    // je découpe ma chaine de caractères en caractères
+    const lettres = monTexte.split('');
+
+    // je créé une fonction setTimeout pour afficher les lettres à intervalle différent et passe "el" en argument (en prévision de la boucle "for" à venir) pour afficher toutes mes lettres unes/unes
+    const lettresTypeEffect = (el) => {
+      setTimeout(() => {
+          h1.insertAdjacentHTML('beforeend', lettres[el]);
+      }, 100 * (el + 1));  // toutes les 0.1sec. Je multiplie par la valeur de "el" (= valeur de "i" dans la boucle "for") pour décaler le temps à chaque lettres (sinon l'ensemble s'afficherait au bout de 0.1s) et "+ 1" pour démarrer à "100" et pas à zéro.
+    }
+    
+    // maintenant je créé ma boucle pour afficher chaque lettre une/une et y insère la fonction ci-dessus
+    for(let i = 0; i < lettres.length; i++){
+      lettresTypeEffect(i);
+    }
+
+    // merci ce post → https://forum.alsacreations.com/topic-5-80452-1-Boucle-for-et-setTimeOut.html
+    
+
+  </script>
+  </body>
+</html>

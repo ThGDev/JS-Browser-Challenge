@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./assets/stylesheet/css/round-photo.css">
+</head>
+  <body>
+    <h1>Round photo</h1>
+    <div class="brief">
+      <p>
+        Comportement souhaité : créer une ombre au passage de la souris et arrondir la photo lorsque l'on click dessus.
+        <br> (voir round-photo.html)
+      </p>
+    </div>
+      <div id="photo1"><img src="./assets/images/round-photo/photo1.jpg" width="20%"></div>
+    <script>
+        //TODO
+        // 1- je stocke l'emplacement de mon image
+        const image = document.querySelector('img');
+        // 2- je place un écouteur au survol de l'image' et applique la classe "shadow" lorsque les conditions sont bonnes
+        image.addEventListener('mouseover', () => {
+          image.classList.add('shadow');
+        })
+        // 3- je place un écouteur au click sur l'image et applique la classe "round-photo" lorsque les conditions sont bonnes
+        image.addEventListener('click', () => {
+          image.classList.add('round-photo');
+        })
+    </script>
+  </body>
+</html>

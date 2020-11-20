@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/stylesheet/css/banniere.css">
+</head>
+  <body>
+    <div class="container">
+      <h1>Bannière JS</h1>
+      <h2>(Methode commerciale pour proposer une promo ou une possibilité d'inscription)</h2>  
+       <div class="brief">
+        <p>
+          Vous développez un  site marchand.
+          <br>1/ Faites apparaitre une bannière (proposition d'inscription à la newsletter) 5 secondes après le chargement de la page.
+          <br>2/ Cette bannière doit être fixer en bas de page.
+          <br>3/ Placez un bouton en haut à droite de la bannière pour fermer celle-ci.
+          <br>(voir bannière.html)
+        </p>
+      </div>
+
+      <div class="banniere bg-info shadow-sm rounded p-3">
+
+        <!-- bouton de fermeture -->
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <h2>Découvrez notre newsletter</h2>
+        <p>Chaque semaine, recevez notre actu directement dans votre boite mail !</p>
+        <form>
+          <div class="form-group">
+            <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Adresse eMail">
+            <small id="email" class="form-text text-white">Nous ne partagerons jamais votre e-mail avec qui que ce soit.</small>
+          </div>
+          <button type="submit" class="btn btn-warning shadow-sm">Je m'inscris</button>
+        </form>
+      </div>
+    </div>
+    
+    <script>
+      //je stocke mon élément bannière dans une variable
+      const banniere = document.querySelector('.banniere');
+
+      setTimeout(() => {  // fonction d'apparition de la banniere au bout de 5sec
+        banniere.style.opacity = '1';
+        banniere.style.transition = 'all 2s';
+      }, 5000);
+
+      // je stocke mon élément bouton close dans une variable
+      const btnFermeture = document.querySelector('.close');
+      
+      const close = () => { // fonction pour masquer la bannière
+        banniere.style.opacity = '0';
+        banniere.style.transition = 'all 2s';
+      }
+
+      // écouteur au clic sur le bouton pour appliquer la fonction de masquage de la bannière
+      btnFermeture.addEventListener(('click'), close);
+    </script>
+  </body>
+</html>

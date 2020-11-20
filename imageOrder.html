@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Challenge Javascript navigateur</title>
+    <link rel="stylesheet" href="./assets/stylesheet/css/imageOrder.css">
+  </head>
+  <body>
+    <h1>Premiers challenges en JS !</h1>
+    <div class="brief">
+      <p>Le click sur le bouton paramoteur doit permettre de n'afficher que les paramoteurs.<br>Idem pour multiaxe. <br>Le bouton all doit permettre de tout afficher <br> (voir imageOrder.html)</p>
+    </div>
+      <div id="imageBloc">
+        <button id="all"> All</button>
+        <button id="paramoteur">paramoteur</button>
+        <button id="multiaxe">multiaxe</button>
+          <ul class="paramoteur">
+            <li><img src="./assets/images/paramoteur1.jpg" width="300px" height="200px" alt="" id="ma-super-image1"></li>
+            <li><img src="./assets/images/paramoteur2.jpg" width="300px" height="200px" alt="" id="ma-super-image2"></li>
+            <li><img src="./assets/images/paramoteur3.jpg" width="300px" height="200px" alt="" id="ma-super-image3"></li>
+          </ul>
+          <ul class="multiaxe">
+            <li><img src="./assets/images/multiaxe1.jpg" width="300px" height="200px" alt="" id="ma-super-image4"></li>
+            <li><img src="./assets/images/multiaxe2.jpg" width="300px" height="200px" alt="" id="ma-super-image5"></li>
+            <li><img src="./assets/images/multiaxe3.jpg" width="300px" height="200px" alt="" id="ma-super-image6"></li>
+          </ul>
+      </div>
+      <script>
+        //TODO
+        //1 - Séléctionner les éléments HTML 'bouton paramoteur', 'bouton multiaxe' et 'bouton all' avec querySelector et les mettre dans une variable.
+        const btnParamoteur = document.querySelector("#paramoteur");
+        const btnMultiaxe = document.querySelector("#multiaxe");
+        const btnAll = document.querySelector("#all");
+        //2 - Séléctionner les liste ul 'multiaxe' et 'paramoteur' avec querySelector et les mettre dans une variable.
+        const listeMultiaxe = document.querySelector(".multiaxe");
+        const listeParamoteur = document.querySelector(".paramoteur");
+        //3 - Placer un 'micro' avec un addEventListener (click) sur les éléments HTML 'bouton paramoteur', 'bouton multiaxe' et 'bouton all'
+        //4 - Dans le callback de l'addEventListener, faire disparaitre les listes 'multiaxe' et 'paramoteur'. Tester cette instruction dans la console du navigateur.
+        const displayListeMultiaxe = listeMultiaxe.style;     // mise en variable du style des 2 listes
+        const displayListeParamoteur = listeParamoteur.style;
+
+        btnParamoteur.addEventListener("click", () => {   //au clic sur le bouton "paramoteur"
+          displayListeMultiaxe.display = "none";          // je masque la liste "multiaxe"
+          console.log(displayListeMultiaxe.display);
+          if(displayListeParamoteur.display === 'none'){  // si la liste "paramoteur" est à "display:none"
+            displayListeParamoteur.display = "block";     // alors je la passe en "display:block"
+          }
+        })
+        btnMultiaxe.addEventListener("click", () => {     // idem bloc ci-dessus mais avec l'autre liste
+          displayListeParamoteur.display = "none";
+          console.log(displayListeParamoteur.display);
+          if(displayListeMultiaxe.display === 'none'){
+            displayListeMultiaxe.display = "block";
+          }
+        })
+        btnAll.addEventListener("click", () => {  // au clic sur le bouton "all"
+          // je teste si une liste ou l'autre est à "display:none" et si c'est le cas, je les passe à "display:block"
+          if(displayListeMultiaxe.display === 'none' || displayListeParamoteur.display === 'none'){
+            displayListeMultiaxe.display = "block";
+            displayListeParamoteur.display = "block";
+          }
+        })
+      </script>
+  </body>
+</html>
+
