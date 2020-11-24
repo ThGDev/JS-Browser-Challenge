@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="./assets/stylesheet/css/valid-form.css">
 </head>
   <body>
-    <h1 style="margin-top: 300px; text-align: center;">Formulaire et validation</h1>
+    <h1>Formulaire et validation</h1>
     <div class="banner">
       <p>Codez une fonction qui assure la sécurité d'une connexion via ce formulaire.</p>
       <p>Le prénom doit faire moins de 15 caractères et le mot de passe doit faire 8 caractères minimum </p>
@@ -20,7 +20,106 @@
     <p class="watchPwd"><input type="checkbox" id="checkbox" name="checkbox">Voir le mot de passe.</p>
     <div id="error-message"></div>
     <script>
-      //TODO
+      //Je récupère les éléments dont je vais avoir besoin + tard
+      const login = document.querySelector('#login');
+      const password = document.querySelector('#pwd');
+      const submit = document.querySelector('#button');
+      const formulaire = document.querySelector('form');
+      const divErrMsg = document.querySelector('#error-message');
+      const checkbox = document.querySelector('#checkbox');
+
+      // Je définie ici les limitations par champs
+      const maxLoginChar = 15;
+      const minPwdChar = 8;
+
+      // fonction de vérification du nbre de caractères du champs "login" avec le nombre maxi en argument
+      let errorMsgLogin;
+      const verifLogin = (nbreChar) => {
+
+        const nbreCharLogin = login.value.length; // je récupère la longueur de la chaine de caractère saisie
+
+        if(nbreCharLogin === 0){ // si cette dernière égale zéro (donc vide), msg d'erreur
+          errorMsgLogin = `<p class="error-message"><strong>Login :</strong> veuillez saisir quelque chose svp</p>`;
+        }
+        else if(nbreCharLogin > nbreChar){  // si elle dépasse la valeur du nbre passé en argument, msg d'erreur
+          errorMsgLogin = `<p class="error-message">Votre login doit faire <strong>moins de ${nbreChar}</strong> caractères.</p>`;
+        }
+        else{ // sinon, msg de validation
+          errorMsgLogin = `<p class="good-message">Votre login fait moins de ${nbreChar} caractères.</p>`;
+        }
+      }
+
+      // fonction de vérification du nbre de caractères du champs "pwd" avec le nombre mini en argument
+      let errorMsgPwd;
+      const verifPassChar = (nbreChar) => {
+
+        const nbreCharPwd = password.value.length;  // je récupère la longueur de la chaine de caractère saisie
+
+        if(nbreCharPwd === 0){ // si cette dernière égale zéro (donc vide), msg d'erreur
+          errorMsgPwd = `<p class="error-message"><strong>Mot de passe :</strong> veuillez saisir quelque chose svp</p>`;
+        }
+        else if(nbreCharPwd < nbreChar){  // tant qu'elle est en dessous de la valeur du nbre passé en argument, msg d'erreur
+          errorMsgPwd = `<p class="error-message">Votre mot de passe doit faire <strong>au moins ${nbreChar}</strong> caractères.</p>`;
+        }
+        else{ // sinon, msg de validation
+          errorMsgPwd = `<p class="good-message">Votre mot de passe fait au moins ${nbreChar} caractères.</p>`;
+        }
+      }
+
+      // fonction générale qui va tout vérifier
+      const validForm = (evt) => {
+        verifLogin(maxLoginChar);   // 15 caractères pour le login
+        verifPassChar(minPwdChar); // 8 caractères pour le pwd
+        divErrMsg.innerHTML = `${errorMsgLogin}${errorMsgPwd}`; // j'écris dans la balise div de message le résultat
+        evt.preventDefault(); // j'empêche la validation du formulaire de recharger la page
+      }
+      submit.addEventListener('click', validForm);  // au clic sur le bouton de validation, j'exécute ma fonction validform.
+
+      // Affichage du mdp lorsque l'on coche la checkbox
+      const affichPwd = () => {
+        if(checkbox.checked == true){ // si la checkbox est cochée
+          password.type = 'text';     // je change le type de l'input en "text"
+        }
+        else{
+          password.type = 'password'; // sinon, je le rechange en "password"
+        }
+      }
+      checkbox.addEventListener('click', affichPwd);  // quand je coche la checkbox, j'active la fonction concernée.
+
+      // Maintenant je vais checker en direct le nbre de caractères saisis dans le champs "password"
+      // pour ça je vais "écouter" le input "password" avec "keyup"
+
+      // d'abord je créé ma fonction qui va compter les caractères et changer la couleur de la bordure du input
+      const compteur = (nbre) => {
+        let nbreChar = 0;       // j'initialise une variable à zéro
+
+        // je fais une boucle qui va se déclencher à chaque 'keyup'
+        // et va boucler autant de fois qu'il y a de caractère(s) saisi(s) dans mon input
+        for (var i = 0; i <= nbre.length -1; i++) {
+          // et qui va incrémenter "nbreChar" de 1
+          nbreChar++;
+        }
+        
+        // ensuite je pose des conditions
+        // si ma variable est entre 1 et la valeur min définie au début de ce script (ici "8")
+        if(nbreChar >= 1 && nbreChar < minPwdChar){
+          password.classList.remove('default-border');  // suppr la bordure par défaut
+          password.classList.add('bad-password');       // ajoute la bordure rouge
+        }
+        // et si ma variable égale ou dépasse la valeur min définie au début de ce script (ici "8")
+        else if(nbreChar >= minPwdChar){
+          password.classList.remove('bad-password');  // suppr la bordure rouge
+          password.classList.add('good-password');    // ajoute la bordure verte
+        }
+      }
+      
+      // maintenant j'écoute ce qui est saisi au clavier dans mon input "password" -> 'keyup'
+      // avec pour argument l'évènement
+      // et je déclenche la fonction créée précédemment à chaque relâchement d'une touche du clavier lorsque l'on est focus sur l'input "password"
+      password.addEventListener('keyup', (event) => {
+        compteur(event.target.value); // à cet évènement je donne une valeur, ici celle du contenu de l'input "password" dans lequel je suis focus (le nbre de caractères saisis)
+      });
+
     </script>
   </body>
 </html>

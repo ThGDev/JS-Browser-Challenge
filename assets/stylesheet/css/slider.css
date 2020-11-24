@@ -3,3 +3,21 @@ body{
     text-align: center; 
     color: gray;
 }
+img {
+    vertical-align: middle;
+}
+.fas {
+    font-size: 50px;
+}
+a {
+    color: silver;
+}
+
+@keyframes opaciteOn{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes opaciteOff{
+    from {opacity: 1;}
+    to {opacity: 0;}
+}

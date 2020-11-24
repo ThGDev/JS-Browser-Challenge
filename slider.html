@@ -3,15 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Slider</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
   <link rel="stylesheet" href="./assets/stylesheet/css/slider.css">
 </head>
 <body>
   <h1>Vous trouverez dans le dossier '/assets/images/slider', 4 photos. Codez un slider
   <br>(voir slider.html)
   </h1>
-  <img id="slide" width="400" height="300">
+  <a href="#" id="prec"><i class="fas fa-arrow-circle-left"></i></a>
+  <img id="slide" width="400" height="300" src="/assets/images/slider/ulm1.jpg" />
+  <a href="#" id="suiv"><i class="fas fa-arrow-circle-right"></i></a>
   <script>
-    //TODO
+    // Je vais devoir créer une fonction qui va enchainer les images dans le slider
+    // pour faire le slider, je vais changer la source de ma balise "img" au fur et à mesure
+    // donc je vais devoir faire un tableau de la source de mes images
+    // et faire en sorte qu'elles s'affichent selon la flêche cliquée
+    
+    // je stocke l'url de mes images dans un tableau
+    const images = ["/assets/images/slider/ulm1.jpg", "/assets/images/slider/ulm2.jpg", "/assets/images/slider/ulm3.jpg"];
+    // je stocke les emplacements de : mon image, mes boutons précédents et suivants
+    const img = document.querySelector('img');
+    const precedent = document.querySelector('#prec');
+    const suivant = document.querySelector('#suiv');
+
+    // je détermine la variable "i" à zéro pour la fonction à suivre
+    let i = 0;
+
+    // je créé une fonction qui va me permettre de naviguer dans mon tableau d'images selon l'argument du bouton cliqué
+    const slider = (nbre) => {
+
+      i += nbre; // j'incrémente la valeur de "i" de celle du nombre
+
+      if(i < 0){               // si "i" est inférieure à 0 ("prec")
+        i = images.length - 1; // alors "i" = la valeur de l'indice du dernier élément du tableau
+      }
+      else if(i > images.length - 1){  // et si "i" est supérieure à la valeur de l'indice du dernier élément du tableau
+        i = 0;                         // alors je la passe à zéro pour revenir à la 1ère image
+      }
+      
+      img.src = images[i]; // puis je change la source de l'image en prenant l'élément correspondant au numéro d'indice du tableau qui a la valeur de "i"
+    }
+
+    precedent.addEventListener("click", () => {
+      slider(-1)
+    });
+
+    suivant.addEventListener("click", () => {
+      slider(+1)
+    });
   </script>
 </body>
 </html>
